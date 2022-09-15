@@ -1,8 +1,8 @@
-@import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;1,200&family=Varela+Round&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:wght@100;300&family=JetBrains+Mono:wght@300&family=Poppins:ital,wght@0,100;0,200;0,300;1,200&family=Varela+Round&display=swap');
 
 html *
 {
-   font-family: 'JetBrains Mono', 'Arial Narrow', Arial, sans-serif;
+   font-family: 'JetBrains Mono','IBM Plex Mono', 'Arial Narrow', Arial, sans-serif;
 }
 
 #red-ui-header .red-ui-deploy-button {

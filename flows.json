@@ -64,8 +64,8 @@
         "name": "",
         "statusCode": "",
         "headers": {},
-        "x": 1130,
-        "y": 260,
+        "x": 1290,
+        "y": 360,
         "wires": []
     },
     {
@@ -79,8 +79,8 @@
         "initialize": "",
         "finalize": "",
         "libs": [],
-        "x": 530,
-        "y": 140,
+        "x": 820,
+        "y": 100,
         "wires": [
             [
                 "3e71fe0ec7bde6b0"
@@ -148,8 +148,8 @@
         "name": "",
         "scope": null,
         "uncaught": false,
-        "x": 160,
-        "y": 700,
+        "x": 150,
+        "y": 980,
         "wires": [
             [
                 "ad23aa6d39604f18"
@@ -163,10 +163,12 @@
         "name": "",
         "statusCode": "500",
         "headers": {
-            "X-Nasph-Complete": "false"
+            "X-Nasph-Complete": "false",
+            "Accept": "application/json",
+            "Content-Type": "application/json"
         },
-        "x": 580,
-        "y": 700,
+        "x": 570,
+        "y": 980,
         "wires": []
     },
     {
@@ -188,8 +190,8 @@
         "from": "",
         "to": "",
         "reg": false,
-        "x": 380,
-        "y": 700,
+        "x": 370,
+        "y": 980,
         "wires": [
             [
                 "1f157efd699d86d7"
@@ -202,8 +204,8 @@
         "z": "303c3e3222f23a18",
         "name": "Process Errors",
         "info": "",
-        "x": 180,
-        "y": 640,
+        "x": 170,
+        "y": 920,
         "wires": []
     },
     {
@@ -240,6 +242,196 @@
         "x": 780,
         "y": 440,
         "wires": []
+    },
+    {
+        "id": "55fefc9fab01990b",
+        "type": "http in",
+        "z": "303c3e3222f23a18",
+        "name": "POST: /categories",
+        "url": "/categories",
+        "method": "post",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 200,
+        "y": 540,
+        "wires": [
+            [
+                "e3298df2439bf253"
+            ]
+        ]
+    },
+    {
+        "id": "e3298df2439bf253",
+        "type": "postgresql",
+        "z": "303c3e3222f23a18",
+        "name": "insertCategory",
+        "query": "INSERT INTO public.categories\n(category_id, category_name, description)\nVALUES(nextval('category_sequence'),\n'{{ msg.payload.category_name }}', \n'{{ msg.payload.description }}'\n);\n",
+        "postgreSQLConfig": "d6058c3017298c37",
+        "split": false,
+        "rowsPerMsg": 1,
+        "outputs": 1,
+        "x": 570,
+        "y": 540,
+        "wires": [
+            [
+                "8011dfb67e9eac9e"
+            ]
+        ]
+    },
+    {
+        "id": "8011dfb67e9eac9e",
+        "type": "change",
+        "z": "303c3e3222f23a18",
+        "name": "Created Success",
+        "rules": [
+            {
+                "t": "set",
+                "p": "payload",
+                "pt": "msg",
+                "to": "{\"message\":\"Recorded created\"}",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "statusCode",
+                "pt": "msg",
+                "to": "201",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "headers['Accept']",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            },
+            {
+                "t": "set",
+                "p": "headers['Content-Type']",
+                "pt": "msg",
+                "to": "application/json",
+                "tot": "str"
+            }
+        ],
+        "action": "",
+        "property": "",
+        "from": "",
+        "to": "",
+        "reg": false,
+        "x": 840,
+        "y": 540,
+        "wires": [
+            [
+                "3e71fe0ec7bde6b0"
+            ]
+        ]
+    },
+    {
+        "id": "03c2abe9acb3a839",
+        "type": "http in",
+        "z": "303c3e3222f23a18",
+        "name": "GET: /cep",
+        "url": "/cep",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 170,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "496b5a1c27f2fda9",
+        "type": "http request",
+        "z": "303c3e3222f23a18",
+        "name": "Consulta CEP",
+        "method": "GET",
+        "ret": "txt",
+        "paytoqs": "ignore",
+        "url": "https://viacep.com.br/ws/01001000/xml/",
+        "tls": "",
+        "persist": false,
+        "proxy": "",
+        "insecureHTTPParser": false,
+        "authType": "",
+        "senderr": false,
+        "headers": [],
+        "x": 840,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "9e3d7750de473367",
+        "type": "xml",
+        "z": "303c3e3222f23a18",
+        "name": "xml",
+        "property": "payload",
+        "attr": "< xmlcep>",
+        "chr": "",
+        "x": 1090,
+        "y": 640,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "8dc3954b376ccd84",
+        "type": "file in",
+        "z": "303c3e3222f23a18",
+        "name": "Data CSV",
+        "filename": "./static/data.csv",
+        "filenameType": "str",
+        "format": "utf8",
+        "chunk": false,
+        "sendError": false,
+        "encoding": "none",
+        "allProps": false,
+        "x": 470,
+        "y": 760,
+        "wires": [
+            []
+        ]
+    },
+    {
+        "id": "c90ac2f749429b66",
+        "type": "http in",
+        "z": "303c3e3222f23a18",
+        "name": "",
+        "url": "/csv",
+        "method": "get",
+        "upload": false,
+        "swaggerDoc": "",
+        "x": 190,
+        "y": 760,
+        "wires": [
+            [
+                "8dc3954b376ccd84"
+            ]
+        ]
+    },
+    {
+        "id": "27a7ac6e755363a9",
+        "type": "csv",
+        "z": "303c3e3222f23a18",
+        "name": "",
+        "sep": ",",
+        "hdrin": true,
+        "hdrout": "none",
+        "multi": "mult",
+        "ret": "\\n",
+        "temp": "name,email",
+        "skip": "0",
+        "strings": true,
+        "include_empty_strings": "",
+        "include_null_values": "",
+        "x": 1090,
+        "y": 760,
+        "wires": [
+            []
+        ]
     },
     {
         "id": "3780b5eefc0dd37e",

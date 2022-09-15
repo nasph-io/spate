@@ -397,7 +397,7 @@
             },
             //edgar 2
             header: {
-                title: " spate",
+                title: " ",
                 image: __dirname + "/static/logo.png", // or null to remove image
             },
     
