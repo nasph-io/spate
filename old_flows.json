@@ -8,6 +8,31 @@
         "env": []
     },
     {
+        "id": "d6058c3017298c37",
+        "type": "postgreSQLConfig",
+        "name": "dbSpate",
+        "host": "localhost",
+        "hostFieldType": "str",
+        "port": "5432",
+        "portFieldType": "num",
+        "database": "northwind",
+        "databaseFieldType": "str",
+        "ssl": "false",
+        "sslFieldType": "bool",
+        "applicationName": "",
+        "applicationNameType": "str",
+        "max": "10",
+        "maxFieldType": "num",
+        "idle": "2000",
+        "idleFieldType": "num",
+        "connectionTimeout": "10000",
+        "connectionTimeoutFieldType": "num",
+        "user": "postgres",
+        "userFieldType": "str",
+        "password": "changeme",
+        "passwordFieldType": "str"
+    },
+    {
         "id": "acf0bbd9e7d62571",
         "type": "http in",
         "z": "e870d4a03089713c",
@@ -52,7 +77,7 @@
         "statusCode": "200",
         "headers": {},
         "x": 670,
-        "y": 280,
+        "y": 240,
         "wires": []
     }
 ]

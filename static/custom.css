@@ -7,13 +7,13 @@ html *
 
 #red-ui-header .red-ui-deploy-button {
 
-background: #b843b9;
+background: #03a9fc;
 color: var(--red-ui-deploy-button-color);
 
 }
 
 #red-ui-header .red-ui-deploy-button {
-    background: #b843b9;
+    background: #03a9fc;
     color: var(--red-ui-deploy-button-color);
 }
 
